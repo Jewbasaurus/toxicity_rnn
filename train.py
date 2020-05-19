@@ -144,7 +144,7 @@ def train_step(model, loss_object, optimizer, x, y, mixed_precision):
 
 
 @tf.function(experimental_relax_shapes=True)
-def test_step(model, x, y):
+def test_step(model, loss_object, x, y):
     """
     Perform a test step
 
@@ -158,7 +158,7 @@ def test_step(model, x, y):
 
     """
     logits = model(x, training=False)
-    loss = loss_object(y, predictions)
+    loss = loss_object(y, logits)
     return loss, logits
 
 
@@ -238,7 +238,7 @@ def main(description='Train a Bi-LSTM to classify toxic commentaries'):
             X = batch[0].to_tensor()
             y = batch[1]
 
-            loss, logits = test_step(model, X, y)
+            loss, logits = test_step(model, loss_object, X, y)
             # Track progress
             test_loss_avg.update_state(loss)  # Add current batch loss
             test_accuracy.update_state(y, logits)
