@@ -80,7 +80,7 @@ def main(description='Train a Bi-LSTM to classify toxic commentaries'):
     ## Required parameters
     parser.add_argument("--input_file", default=None, type=str, required=True,
                         help="The input .txt file. Example per line")
-    parser.add_argument("--model_dir", default='model', type=str, required=True,
+    parser.add_argument("--model_dir", default=None, type=str, required=True,
                         help="The directory with model files (bpe model, config and weights).")
     parser.add_argument("--output_file", default=None, type=str, required=True,
                         help="THe output .txt file. Label per line")
